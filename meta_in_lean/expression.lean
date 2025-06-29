@@ -1,3 +1,5 @@
+/- Chapter 2: Expression-/
+
 import Lean
 
 -- def main : IO Unit := IO.println "Hello, world!"
@@ -59,10 +61,10 @@ def constZero : Expr :=
   .lam `x (.const ``Nat []) (.const ``Nat.zero []) BinderInfo.default
 #eval constZero
 
-/-? 1. when should I use mkAppN?
+/-**?** 1. when should I use mkAppN?
     2. how can I give in the correct universe level parameter?
     3. what is exactly BinderInfo.default?
-    4. -/
+    -/
 def nat : Expr := .const ``Nat []
 def addOne : Expr :=
   .lam `x nat
@@ -163,14 +165,14 @@ elab "seven" : term => return seven
 #reduce seven -- ∀ (x : Prop), x ∧ x
 
 def exercise08 : Expr :=
-  Expr.forallE `notUsed --notUsed means that here we don't have any name for variable??
+  Expr.forallE `notUsed --notUsed means that here we don't have any name for variable **??**
   (Expr.const `Nat []) (Expr.const `String [])
   BinderInfo.default
 elab "exercise08" : term => return exercise08
 #check exercise08
 #reduce exercise08
 
-/-? I don't quite understand,
+/-**?** I don't quite understand,
   why the type of hp was assigned to Expr.bvar 0,
   but the Expr.bvar 1 doesn't work at all.
   It is clear that the hp should has type p,
@@ -184,11 +186,11 @@ elab "exercise09" : term => return exercise09
 #reduce exercise09
 
 def exercise10 : Expr :=
-  Expr.sort (Nat.toLevel 7) -- Leav.Level.seven doesn't defined?
+  Expr.sort (Nat.toLevel 7) -- **?** there's not something like Lean.Level.seven?
 elab "exercise10" : term => return exercise10
 #check exercise10
 #reduce exercise10
 
-/-? the difference of check and reduce?
+/-**?** the difference of check and reduce?
  dose check just print out all the information,
- butreduce normalize the term more than check?-/
+ but reduce normalize the term more than check?-/
